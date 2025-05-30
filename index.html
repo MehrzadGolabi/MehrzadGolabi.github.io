@@ -1,310 +1,757 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <title>TurtleBot3 Web Joystick Teleop</title>
-  <!-- roslibjs from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/roslib@1/build/roslib.min.js"></script>
-  <!-- nipplejs from CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/nipplejs@0.9.0/dist/nipplejs.min.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mehrzad Golabi | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* General reset and base styles */
+    :root {
+      --primary-color: #2d3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --text-color: #333;
+      --light-bg: #f9f9f9;
+      --dark-bg: #2c3e50;
+      --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-    }
-    h1 {
-      margin-bottom: 0.5rem;
-      font-size: 1.8rem;
-      text-align: center;
-    }
-    p {
-      margin-bottom: 1.5rem;
-      text-align: center;
-      max-width: 600px;
-      line-height: 1.4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--light-bg);
     }
 
-    .connection-settings {
+    /* RTL Support */
+    html[dir="rtl"] body {
+      font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html[dir="rtl"] .section-title::after {
+      left: auto;
+      right: 0;
+    }
+
+    html[dir="rtl"] nav ul li {
+      margin-left: 0;
+      margin-right: 30px;
+    }
+
+    html[dir="rtl"] .social-links-header a i,
+    html[dir="rtl"] .social-links-hero a i {
+      margin-right: 0;
+      margin-left: 10px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header styles */
+    header {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: var(--secondary-color);
+    }
+
+    nav {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
     }
-    .connection-settings label {
-      font-weight: bold;
-      margin-right: 0.3rem;
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin-right: 20px;
     }
-    .connection-settings input {
-      width: 90px;
-      padding: 0.2rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      text-align: center;
+
+    nav ul li {
+      margin-left: 30px;
     }
-    .connection-settings button {
-      padding: 0.4rem 1rem;
-      background: #4CAF50;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--secondary-color);
+    }
+
+    .nav-divider {
+      height: 30px;
+      width: 1px;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin: 0 15px;
+    }
+
+    .social-links-header {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links-header a {
+      color: white;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+    }
+
+    .social-links-header a i {
+      margin-right: 5px;
+    }
+
+    .social-links-header a:hover {
+      color: var(--secondary-color);
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.5rem;
       cursor: pointer;
     }
-    .connection-settings button:hover {
-      background: #45a049;
+
+    /* Language Switcher */
+    .language-switch {
+      margin-left: 20px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 5px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: background-color 0.3s;
     }
 
-    .status {
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-      color: #666;
+    .language-switch:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .language-switch i {
+      margin-right: 8px;
+    }
+
+    /* Hero section */
+    #hero {
+      height: 100vh;
+      background: linear-gradient(135deg, var(--primary-color), var(--dark-bg));
+      color: white;
+      display: flex;
+      align-items: center;
       text-align: center;
     }
-    .status.connected {
-      color: green;
-    }
-    .status.disconnected {
-      color: red;
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
-    /* Container for the joystick */
-    .joystick-container {
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-content .btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      margin: 10px;
+    }
+
+    .hero-content .btn:hover {
+      background-color: #2980b9;
+    }
+
+    .social-links-hero {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .social-links-hero a {
+      display: inline-flex;
       align-items: center;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
-      margin-bottom: 1rem;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+      min-width: 160px;
     }
-    #joystickZone {
-      width: 300px;
-      height: 300px;
-      background: #fafafa;
-      border: 2px dashed #ccc;
-      border-radius: 50%;
+    
+    .social-links-hero a i {
+      font-size: 1.5rem;
+      margin-right: 10px;
+    }
+    
+    .social-links-hero a:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    /* About section */
+    #about {
+      padding: 100px 0;
+      background-color: white;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1;
+      min-width: 300px;
+      padding-right: 30px;
+    }
+
+    html[dir="rtl"] .about-text {
+      padding-right: 0;
+      padding-left: 30px;
+    }
+
+    .about-image {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+    }
+
+    .about-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
       position: relative;
+      padding-bottom: 15px;
     }
-    .description {
-      font-size: 0.9rem;
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 60px;
+      background-color: var(--secondary-color);
+    }
+
+    /* Repositories section */
+    #repositories {
+      padding: 100px 0;
+      background-color: var(--light-bg);
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .repo-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s;
+    }
+
+    .repo-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .repo-card-content {
+      padding: 20px;
+    }
+
+    .repo-card h3 {
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
+    .repo-card p {
+      margin-bottom: 15px;
       color: #666;
-      text-align: left;
-      margin-top: 1rem;
-      line-height: 1.4;
+    }
+
+    .repo-card .repo-link {
+      display: inline-block;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .repo-card .repo-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Contact section */
+    #contact {
+      padding: 100px 0;
+      background-color: white;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .social-links a:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-5px);
+    }
+
+    .social-links i {
+      font-size: 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        background-color: var(--dark-bg);
+        width: 100%;
+        height: calc(100vh - 70px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: left 0.3s;
+        margin-right: 0;
+      }
+
+      html[dir="rtl"] nav ul {
+        left: auto;
+        right: -100%;
+        transition: right 0.3s;
+      }
+
+      html[dir="rtl"] nav ul.active {
+        left: auto;
+        right: 0;
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 15px 0;
+      }
+      
+      .nav-divider {
+        height: 1px;
+        width: 60%;
+        margin: 20px 0;
+      }
+
+      .social-links-header {
+        position: absolute;
+        bottom: 40px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .social-links-header a {
+        font-size: 1.2rem;
+      }
+      
+      .social-links-hero {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .social-links-hero a {
+        width: 80%;
+        max-width: 250px;
+      }
+
+      .about-content {
+        flex-direction: column-reverse;
+      }
+
+      .about-text, .about-image {
+        padding: 0;
+        margin-bottom: 30px;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .language-switch {
+        margin: 20px 0 0 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .repo-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vazirmatn@33.0.3/Vazirmatn-font-face.css">
 </head>
-
 <body>
-  <h1>TurtleBot3 Web Joystick Teleop</h1>
-  <p>Control your TurtleBot3 from any modern browser using this on-screen joystick. Adjust the ROS bridge IP and port below, then connect and move the joystick to drive your robot.</p>
-
-  <!-- Connection Settings -->
-  <div class="connection-settings">
-    <label for="rosbridge-ip">ROS Bridge IP:</label>
-    <input id="rosbridge-ip" type="text" value="localhost">
-    <label for="rosbridge-port">Port:</label>
-    <input id="rosbridge-port" type="text" value="9090">
-    <button onclick="connectToROS()">Connect</button>
-  </div>
-
-  <div id="status" class="status disconnected">Not connected</div>
-
-  <div class="joystick-container">
-    <div id="joystickZone"></div>
-    <div class="description">
-      <strong>How it works:</strong>
-      <ul>
-        <li>Dragging up/down increases or decreases linear velocity (forward/backward).</li>
-        <li>Dragging left/right adjusts angular velocity (turning left/right).</li>
-        <li>Velocity scales with how far you drag from the center.</li>
-        <li>The joystick automatically resets to zero velocity when released.</li>
-      </ul>
+  <!-- Header and Navigation -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">Mehrzad<span>Golabi</span></div>
+      <div class="menu-icon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav>
+        <ul id="menu">
+          <li><a href="#hero" data-i18n="nav.home">Home</a></li>
+          <li><a href="#about" data-i18n="nav.about">About</a></li>
+          <li><a href="#repositories" data-i18n="nav.repositories">Repositories</a></li>
+          <div class="nav-divider"></div>
+          <div class="social-links-header">
+            <a href="https://github.com/MehrzadGolabi" target="_blank"><i class="fab fa-github"></i> <span data-i18n="social.github">GitHub</span></a>
+            <a href="https://www.linkedin.com/in/mehrzad-golabi/" target="_blank"><i class="fab fa-linkedin"></i> <span data-i18n="social.linkedin">LinkedIn</span></a>
+            <a href="mailto:mehrzadgolabi@gmail.com"><i class="fas fa-envelope"></i> <span data-i18n="social.email">Email</span></a>
+          </div>
+        </ul>
+        <div class="language-switch" id="language-toggle">
+          <i class="fas fa-language"></i>
+          <span data-i18n="language.switch">English / فارسی</span>
+        </div>
+      </nav>
     </div>
-  </div>
+  </header>
 
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1 data-i18n="hero.title">Hello, I'm Mehrzad Golabi</h1>
+      <p data-i18n="hero.subtitle">Welcome to my portfolio website where I showcase my projects and share my journey in the world of software development.</p>
+      <div>
+        <a href="#repositories" class="btn" data-i18n="hero.cta">View My Work</a>
+      </div>
+      <div class="social-links-hero">
+        <a href="https://github.com/MehrzadGolabi" target="_blank"><i class="fab fa-github"></i> <span data-i18n="social.github">GitHub</span></a>
+        <a href="https://www.linkedin.com/in/mehrzad-golabi/" target="_blank"><i class="fab fa-linkedin"></i> <span data-i18n="social.linkedin">LinkedIn</span></a>
+        <a href="mailto:mehrzadgolabi@gmail.com"><i class="fas fa-envelope"></i> <span data-i18n="social.email">Email</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title" data-i18n="about.title">About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p data-i18n="about.p1">Electrical Engineer</p>
+          <p data-i18n="about.p2">i work on stuff</p>
+          <p data-i18n="about.p3">this is currently under construction</p>
+        </div>
+        <div class="about-image">
+          <img src="https://avatars.githubusercontent.com/u/96944259?s=400&v=4" alt="Mehrzad Golabi">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Repositories Section -->
+  <section id="repositories">
+    <div class="container">
+      <h2 class="section-title" data-i18n="repositories.title">My Repositories</h2>
+      <div class="repo-grid" id="repo-container">
+        <!-- Repository cards will be dynamically loaded here -->
+        <div class="repo-card">
+          <div class="repo-card-content">
+            <h3 data-i18n="repositories.loading.title">Loading repositories...</h3>
+            <p data-i18n="repositories.loading.subtitle">Please wait while we fetch my GitHub repositories.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="footer.copyright">&copy; 2025 Mehrzad Golabi. All Rights Reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-    /*******************************************************
-     * 1) TurtleBot3 & Joystick Configuration
-     *******************************************************/
-    let ros = null;            // will hold ROSLIB.Ros instance
-    let cmdVelTopic = null;    // will hold the publisher to /cmd_vel
+    // Mobile menu toggle
+    document.querySelector('.menu-icon').addEventListener('click', function() {
+      document.querySelector('nav ul').classList.toggle('active');
+    });
 
-    // TurtleBot3 model ("burger", "waffle", or "waffle_pi")
-    const TURTLEBOT3_MODEL = "burger";
-
-    // TurtleBot3 velocity limits
-    const BURGER_MAX_LIN_VEL = 0.22; //default 0.22
-    const BURGER_MAX_ANG_VEL = 2.84;
-
-    const WAFFLE_MAX_LIN_VEL = 0.26;
-    const WAFFLE_MAX_ANG_VEL = 1.82;
-
-    // Approximate maximum distance for the joystick (for scaling)
-    const JOYSTICK_MAX_DISTANCE = 75;  // px radius for scaling
-
-    // Current velocities
-    let linearVel = 0.0;
-    let angularVel = 0.0;
-
-    // Return the max linear velocity for the selected TurtleBot3 model
-    function getMaxLinVel() {
-      if (TURTLEBOT3_MODEL === "burger") {
-        return BURGER_MAX_LIN_VEL;
-      } else {
-        // waffle / waffle_pi
-        return WAFFLE_MAX_LIN_VEL;
-      }
-    }
-    // Return the max angular velocity for the selected TurtleBot3 model
-    function getMaxAngVel() {
-      if (TURTLEBOT3_MODEL === "burger") {
-        return BURGER_MAX_ANG_VEL;
-      } else {
-        return WAFFLE_MAX_ANG_VEL;
-      }
-    }
-
-    /*******************************************************
-     * 2) Connect to ROS
-     *******************************************************/
-    function connectToROS() {
-      const ipInput = document.getElementById('rosbridge-ip');
-      const portInput = document.getElementById('rosbridge-port');
-      const statusEl = document.getElementById('status');
-
-      const ip = ipInput.value.trim();
-      const port = portInput.value.trim();
-      const url = `ws://${ip}:${port}`;
-
-      // If we already have a connection, close it before creating a new one
-      if (ros && ros.isConnected) {
-        ros.close();
-      }
-
-      // Create a new ROS connection
-      ros = new ROSLIB.Ros({
-        url: url
-      });
-
-      ros.on('connection', () => {
-        statusEl.textContent = `Connected to rosbridge at ws://${ip}:${port}`;
-        statusEl.classList.remove('disconnected');
-        statusEl.classList.add('connected');
-
-        // Initialize cmd_vel topic publisher
-        cmdVelTopic = new ROSLIB.Topic({
-          ros: ros,
-          name: '/cmd_vel',
-          messageType: 'geometry_msgs/Twist'
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
         });
+        // Close mobile menu after clicking a link
+        document.querySelector('nav ul').classList.remove('active');
       });
+    });
 
-      ros.on('error', (error) => {
-        console.error('Error connecting to rosbridge websocket:', error);
-        statusEl.textContent = `Error connecting to ws://${ip}:${port}`;
-        statusEl.classList.remove('connected');
-        statusEl.classList.add('disconnected');
-      });
-
-      ros.on('close', () => {
-        console.log('Connection to rosbridge closed.');
-        statusEl.textContent = `Disconnected from ws://${ip}:${port}`;
-        statusEl.classList.remove('connected');
-        statusEl.classList.add('disconnected');
-      });
-    }
-
-    /*******************************************************
-     * 3) Publish cmd_vel messages
-     *******************************************************/
-    function publishCmdVel(lin, ang) {
-      // Only publish if connected and topic is defined
-      if (!ros || !cmdVelTopic || !ros.isConnected) {
-        return;
-      }
-
-      let twist = new ROSLIB.Message({
-        linear:  {
-          x: lin,
-          y: 0.0,
-          z: 0.0
+    // Translations
+    const translations = {
+      en: {
+        nav: {
+          home: "Home",
+          about: "About",
+          repositories: "Repositories"
         },
-        angular: {
-          x: 0.0,
-          y: 0.0,
-          z: ang
+        social: {
+          github: "GitHub",
+          linkedin: "LinkedIn",
+          email: "Email"
+        },
+        language: {
+          switch: "English / فارسی"
+        },
+        hero: {
+          title: "Hello, I'm Mehrzad Golabi",
+          subtitle: "Welcome to my portfolio website where I showcase my projects and share my journey in the world of software development.",
+          cta: "View My Work"
+        },
+        about: {
+          title: "About Me",
+          p1: "Electrical Engineer",
+          p2: "i work on stuff",
+          p3: "this is currently under construction"
+        },
+        repositories: {
+          title: "My Repositories",
+          loading: {
+            title: "Loading repositories...",
+            subtitle: "Please wait while we fetch my GitHub repositories."
+          },
+          viewOn: "View on GitHub"
+        },
+        footer: {
+          copyright: "© 2025 Mehrzad Golabi. All Rights Reserved."
+        }
+      },
+      fa: {
+        nav: {
+          home: "خانه",
+          about: "درباره من",
+          repositories: "پروژه‌ها"
+        },
+        social: {
+          github: "گیت‌هاب",
+          linkedin: "لینکدین",
+          email: "ایمیل"
+        },
+        language: {
+          switch: "فارسی / English"
+        },
+        hero: {
+          title: "سلام، من مهرزاد گلابی هستم",
+          subtitle: "به وب‌سایت شخصی من خوش آمدید، جایی که پروژه‌های من و مسیر حرفه‌ای‌ام در دنیای توسعه نرم‌افزار را به نمایش می‌گذارم.",
+          cta: "مشاهده پروژه‌های من"
+        },
+        about: {
+          title: "درباره من",
+          p1: "مهندس برق",
+          p2: "روی پروژه‌های مختلف کار می‌کنم",
+          p3: "این بخش در حال تکمیل است"
+        },
+        repositories: {
+          title: "پروژه‌های من",
+          loading: {
+            title: "در حال بارگذاری...",
+            subtitle: "لطفا صبر کنید تا پروژه‌های من از گیت‌هاب دریافت شوند."
+          },
+          viewOn: "مشاهده در گیت‌هاب"
+        },
+        footer: {
+          copyright: "© ۲۰۲۵ مهرزاد گلابی. تمامی حقوق محفوظ است."
+        }
+      }
+    };
+
+    // Language switcher
+    let currentLang = localStorage.getItem('language') || 'en';
+    
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('language', lang);
+      
+      // Set direction for RTL/LTR
+      document.documentElement.setAttribute('dir', lang === 'fa' ? 'rtl' : 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+      
+      // Update all translatable elements
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const keys = element.getAttribute('data-i18n').split('.');
+        let value = translations[lang];
+        
+        for (const key of keys) {
+          value = value[key];
+        }
+        
+        if (value) {
+          element.textContent = value;
         }
       });
-      cmdVelTopic.publish(twist);
+    }
+    
+    // Initialize with saved language or default
+    setLanguage(currentLang);
+    
+    // Language toggle handler
+    document.getElementById('language-toggle').addEventListener('click', function() {
+      const newLang = currentLang === 'en' ? 'fa' : 'en';
+      setLanguage(newLang);
+    });
+
+    // Fetch GitHub repositories
+    async function fetchRepositories() {
+      try {
+        const username = 'MehrzadGolabi';
+        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+        const repos = await response.json();
+        
+        if (Array.isArray(repos)) {
+          const repoContainer = document.getElementById('repo-container');
+          repoContainer.innerHTML = '';
+          
+          repos.forEach(repo => {
+            const card = document.createElement('div');
+            card.className = 'repo-card';
+            
+            const description = repo.description || 'No description available';
+            
+            card.innerHTML = `
+              <div class="repo-card-content">
+                <h3>${repo.name}</h3>
+                <p>${description.substring(0, 100)}${description.length > 100 ? '...' : ''}</p>
+                <a href="${repo.html_url}" class="repo-link" target="_blank">
+                  <span data-i18n="repositories.viewOn">${currentLang === 'en' ? 'View on GitHub' : 'مشاهده در گیت‌هاب'}</span>
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            `;
+            
+            repoContainer.appendChild(card);
+          });
+          
+          // Translate any new elements
+          document.querySelectorAll('[data-i18n]').forEach(element => {
+            const keys = element.getAttribute('data-i18n').split('.');
+            let value = translations[currentLang];
+            
+            for (const key of keys) {
+              value = value[key];
+            }
+            
+            if (value) {
+              element.textContent = value;
+            }
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching repositories:', error);
+        document.getElementById('repo-container').innerHTML = `
+          <div class="repo-card">
+            <div class="repo-card-content">
+              <h3 data-i18n="repositories.error.title">${currentLang === 'en' ? 'Error loading repositories' : 'خطا در بارگذاری پروژه‌ها'}</h3>
+              <p data-i18n="repositories.error.subtitle">${currentLang === 'en' ? 'Please check your connection and try again.' : 'لطفا اتصال خود را بررسی کرده و دوباره تلاش کنید.'}</p>
+            </div>
+          </div>
+        `;
+      }
     }
 
-    /*******************************************************
-     * 4) Setup the joystick (nipplejs)
-     *******************************************************/
-    const joystickZone = document.getElementById('joystickZone');
-
-    // Create the manager
-    const manager = nipplejs.create({
-      zone: joystickZone,
-      mode: 'static',
-      position: { left: '50%', top: '50%' },
-      size: 200,
-      color: 'blue'
-    });
-
-    // On move: compute velocities, publish
-    manager.on('move', function (evt, data) {
-      if (data.distance) {
-        let maxLinVel = getMaxLinVel();
-        let maxAngVel = getMaxAngVel();
-
-        let distance = data.distance;
-        let angleRad = data.angle.radian;
-        
-        // We'll offset angle so 0 rad = "up"
-        // Nipplejs uses 0 rad at the "right" (east).
-        // If we want 0 rad to be up, subtract PI/2
-        const alpha = angleRad - Math.PI / 2.0;
-
-        // Normalize distance to [0..1]
-        let norm = distance / JOYSTICK_MAX_DISTANCE;
-        if (norm > 1.0) norm = 1.0;  // clamp at 1.0
-
-        // forward/backward => linear x
-        // alpha=0 => forward => negative cos => move forward
-        let forward = -Math.cos(alpha) * norm;
-        // left/right => angular z
-        let turn    = Math.sin(alpha) * norm;
-
-        linearVel  = forward * maxLinVel;
-        angularVel = turn    * maxAngVel;
-      }
-      // Publish
-      publishCmdVel(linearVel, angularVel);
-    });
-
-    // On end: stop
-    manager.on('end', function () {
-      linearVel  = 0.0;
-      angularVel = 0.0;
-      publishCmdVel(linearVel, angularVel);
-    });
+    // Load repositories when the page loads
+    window.addEventListener('load', fetchRepositories);
   </script>
 </body>
 </html>
