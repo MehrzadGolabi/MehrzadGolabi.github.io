@@ -1,0 +1,21 @@
+[
+  {
+    "title": "AES-VHDL + UART on Spartan-6",
+    "language": "VHDL",
+    "stack": ["UART", "Spartan-6", "FPGA", "AES-128"],
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop",
+    "learnings": "Reduced 387 I/Os to a UART-based hex protocol to fit Posedge-1 Spartan-6; designed a framing protocol for plaintext/key/ciphertext; handled CDC, timing closure, and wrote testbenches for UART and AES datapath.",
+    "snippet": "-- UART-driven AES-128 encrypt top-level (simplified)\nentity top is\n  port (\n    clk      : in  std_logic;\n    rst      : in  std_logic;\n    uart_rx  : in  std_logic;\n    uart_tx  : out std_logic\n  );\nend entity;\n\narchitecture rtl of top is\n  signal key     : std_logic_vector(127 downto 0);\n  signal data_i  : std_logic_vector(127 downto 0);\n  signal data_o  : std_logic_vector(127 downto 0);\n  signal start   : std_logic;\n  signal ready   : std_logic;\nbegin\n  -- UART decoder/encoder (hex protocol)\n  -- u_rx: entity work.uart_rx ...\n  -- u_tx: entity work.uart_tx ...\n\n  u_aes: entity work.aes_enc\n    port map (\n      clk   => clk,\n      rst   => rst,\n      key   => key,\n      din   => data_i,\n      start => start,\n      dout  => data_o,\n      ready => ready\n    );\n\n  -- handshaking: assert start when full block + key are received\n  -- transmit data_o over UART when ready = '1'\nend architecture;",
+    "link": "https://github.com/MehrzadGolabi/AES-VHDL"
+  },
+  {
+    "title": "Electric Car (ATmega32) — Software I2C Core",
+    "language": "C",
+    "stack": ["ATmega32", "I2C (bit-banged)", "Proteus"],
+    "image": "https://raw.githubusercontent.com/MehrzadGolabi/Digital2-Lab-Final-Project--Electric-Car-ATMEGA32/main/Az_digital2_400249049.png",
+    "learnings": "Implemented precise SCL/SDA timing, clock stretching handling, and an I2C scanner in Proteus. This enabled sensor comms without TWI hardware and simplified debugging over the virtual terminal.",
+    "snippet": "i2c_read_byte(uint8_t ack){\n  uint8_t v=0; sda_high(); // release for input\n  for(uint8_t i=0;i<8;i++){\n    v <<= 1; i2c_delay(); scl_high(); while(!scl_read());\n    if(sda_read()) v |= 1; i2c_delay(); scl_low();\n  }\n  if(ack) sda_low(); else sda_high(); // drive ACK(0) or NACK(1)\n  i2c_delay(); scl_high(); while(!scl_read()); i2c_delay(); scl_low(); sda_high();\n  return v;\n}",
+    "link": "https://github.com/MehrzadGolabi/Digital2-Lab-Final-Project--Electric-Car-ATMEGA32"
+  }
+]
+
