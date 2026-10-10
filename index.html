@@ -30,7 +30,7 @@
       <a class="brand" href="index.html" data-i18n="name">Mehrzad Golabi</a>
       <nav class="site-nav" aria-label="Main">
         <a href="projects.html" data-i18n="nav.projects">Projects</a>
-        <a href="Mehrzad-Golabi-Resume-FA.pdf" target="_blank" rel="noopener" data-i18n="nav.resume">Resume</a>
+        <a class="nav-resume" href="Mehrzad-Golabi-Resume-FA.pdf" target="_blank" rel="noopener" data-i18n="nav.resume">Resume</a>
         <button class="link-btn" id="theme-toggle" type="button" aria-label="Theme">Dark</button>
         <button class="link-btn" id="lang-toggle" type="button" aria-label="Language">فارسی</button>
       </nav>
@@ -38,6 +38,9 @@
   </header>
 
   <main id="main" class="wrap">
+    <noscript>
+      <p class="noscript">This site needs JavaScript to show my experience, projects and skills. Without it, you can find everything in my <a href="Mehrzad-Golabi-Resume-FA.pdf">resume (PDF, Persian)</a>, or on <a href="https://github.com/MehrzadGolabi">GitHub</a>, <a href="https://www.linkedin.com/in/mehrzad-golabi/">LinkedIn</a>, <a href="https://t.me/mehrzad_golabi">Telegram</a> or <a href="mailto:mehrzadgolabi@gmail.com">email</a>.</p>
+    </noscript>
     <div class="intro-head">
       <img class="avatar" src="Profile.jpg" width="168" height="168" alt="Mehrzad Golabi">
       <div>
@@ -81,7 +84,10 @@
   </main>
 
   <footer>
-    <div class="wrap" data-i18n="footer">© 2026 Mehrzad Golabi</div>
+    <div class="wrap">
+      <span id="copyright">© 2026 Mehrzad Golabi</span>
+      <span id="edited"></span>
+    </div>
   </footer>
   <script src="site.js"></script>
 </body>

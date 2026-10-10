@@ -47,7 +47,7 @@ a:hover { text-decoration: underline; }
 }
 .brand { color: var(--fg); font-weight: 600; }
 .brand:hover { text-decoration: none; }
-.site-header .wrap { direction: ltr; } /* keep header layout identical in EN and FA */
+.site-header .wrap { flex-wrap: nowrap; direction: ltr; } /* keep header layout identical in EN and FA */
 .site-nav { display: flex; gap: 20px; align-items: center; font-size: 0.95rem; }
 .site-nav .link-btn { text-align: center; }
 #theme-toggle { width: 3.5rem; }
@@ -116,6 +116,7 @@ dl.skills dt { color: var(--muted); font-size: 0.9rem; }
 .page-title { margin-bottom: 8px; }
 .page-sub { color: var(--muted); }
 
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; }
 footer { border-top: 1px solid var(--rule); margin-top: 56px; padding: 20px 0 40px; color: var(--muted); font-size: 0.9rem; }
 
 @media (max-width: 600px) {
@@ -123,6 +124,8 @@ footer { border-top: 1px solid var(--rule); margin-top: 56px; padding: 20px 0 40
   .entry, dl.skills { grid-template-columns: 1fr; gap: 2px; }
   dl.skills dd { margin-bottom: 8px; }
 }
+
+.noscript { margin-top: 24px; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 
 .skip-link {
   position: absolute;
@@ -158,4 +161,12 @@ footer { border-top: 1px solid var(--rule); margin-top: 56px; padding: 20px 0 40
 }
 @media (min-width: 2400px) {
   html { font-size: 24px; }
+}
+
+/* Phones: keep the header on one row (the resume link is also in the intro) */
+@media (max-width: 600px) {
+  .nav-resume { display: none; }
+  .site-nav { gap: 14px; font-size: 0.9rem; }
+  #theme-toggle { width: 3rem; }
+  #lang-toggle { width: 3.6rem; }
 }

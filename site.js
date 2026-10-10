@@ -27,7 +27,7 @@
       'projects.back': 'Home',
       'repo': 'Repository',
       'details': 'Details',
-      'footer': '© 2026 Mehrzad Golabi'
+      'edited': 'Last edited'
     },
     fa: {
       'nav.projects': 'پروژه‌ها',
@@ -52,7 +52,7 @@
       'projects.back': 'خانه',
       'repo': 'مخزن',
       'details': 'جزئیات',
-      'footer': '© ۲۰۲۶ مهرزاد گلابی'
+      'edited': 'آخرین ویرایش'
     }
   };
 
@@ -135,6 +135,19 @@
     var l = $('lang-toggle');
     if (l) l.textContent = t('lang.switch');
     applyTheme();
+    renderFooter();
+  }
+
+  function renderFooter() {
+    var c = $('copyright'), e = $('edited');
+    var locale = lang === 'fa' ? 'fa-IR-u-ca-persian' : 'en-GB';
+    var yearLocale = lang === 'fa' ? 'fa-IR' : 'en-GB';
+    if (c) c.textContent = '© ' + new Date().toLocaleString(yearLocale, { year: 'numeric', useGrouping: false }) + ' ' + t('name');
+    if (e) {
+      var d = new Date(document.lastModified);
+      if (isNaN(d)) { e.textContent = ''; return; }
+      e.textContent = t('edited') + ': ' + d.toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
+    }
   }
 
   // ---------- dynamic sections ----------
