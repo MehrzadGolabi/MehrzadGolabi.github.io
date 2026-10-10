@@ -1,21 +1,152 @@
 [
   {
+    "title": "Thesis: SLAM Comparison on TurtleBot3",
+    "title_fa": "پروژه کارشناسی: مقایسه الگوریتم‌های SLAM روی TurtleBot3",
+    "language": "MATLAB",
+    "stack": [
+      "ROS2 Humble",
+      "TurtleBot3",
+      "LiDAR LDS-02",
+      "Pose-Graph SLAM",
+      "Hector SLAM",
+      "MATLAB"
+    ],
+    "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80&auto=format&fit=crop",
+    "learnings": "B.Sc. project at Shahid Beheshti University comparing simultaneous localization and mapping algorithms. Ran SLAM on a TurtleBot3 Burger under ROS2 Humble, streaming LiDAR data to MATLAB for mapping, and evaluated Pose-Graph vs Hector SLAM in indoor environments. Built a MATLAB GUI for live visualization and worked with the university robotics team on autonomous navigation. Code is not public; report and results available on request.",
+    "learnings_fa": "پروژه‌ی کارشناسی در دانشگاه شهید بهشتی: مقایسه‌ی الگوریتم‌های نقشه‌برداری و مکان‌یابی هم‌زمان. پیاده‌سازی SLAM روی TurtleBot3 Burger در ROS2 Humble با انتقال داده‌های LiDAR به MATLAB، ارزیابی الگوریتم‌های Pose-Graph و Hector SLAM در محیط‌های داخلی، طراحی رابط گرافیکی MATLAB برای پایش و تحلیل داده‌ها و همکاری با تیم رباتیک دانشگاه. کد این پروژه عمومی نیست؛ گزارش و نتایج در صورت درخواست قابل ارائه است.",
+    "summary": "B.Sc. thesis: Pose-Graph vs Hector SLAM on a TurtleBot3 (ROS2 Humble, MATLAB).",
+    "summary_fa": "پروژه کارشناسی: مقایسه Pose-Graph و Hector SLAM روی TurtleBot3 (ROS2 Humble و MATLAB).",
+    "images": [
+      {
+        "src": "capstone-project-physical-1.jpg",
+        "caption": "Physical test arena with the TurtleBot3",
+        "caption_fa": "محیط آزمون فیزیکی همراه با TurtleBot3"
+      },
+      {
+        "src": "capstone-project-physical-1-map.png",
+        "caption": "Resulting map in MATLAB: robot trajectory, loop closures and laser scans",
+        "caption_fa": "نقشه‌ی حاصل در MATLAB: مسیر ربات، بستن حلقه‌ها و اسکن‌های لیزری"
+      }
+    ]
+  },
+  {
+    "title": "ROS2 Line Follower Robot",
+    "title_fa": "ربات دنبال‌کننده خط (ROS2)",
+    "language": "C++ / Python",
+    "stack": [
+      "ROS2 Jazzy",
+      "Gazebo",
+      "OpenCV",
+      "ros2_control",
+      "ros_gz_bridge",
+      "ESP32",
+      "Raspberry Pi"
+    ],
+    "image": "https://github.com/user-attachments/assets/8c643436-018e-4965-a198-7147e0f2727c",
+    "learnings": "Built a line follower with two modes (IR array and camera/OpenCV) as three ROS2 packages with Node/Topic/Service and launch-file structure. Modeled the robot in URDF/SDF, tested in Gazebo, ran motors and encoders through ros2_control with twist_mux command arbitration, and used ros_gz_bridge to run the same nodes in software-in-the-loop and on real hardware (HITL), debugging with RViz2 and rqt.",
+    "learnings_fa": "ربات دنبال‌کننده خط با دو حالت کاری (آرایه‌ی IR و پردازش تصویر با OpenCV) در قالب سه پکیج ROS2 با ساختار Node/Topic/Service و Launch File. مدل‌سازی در URDF/SDF و شبیه‌سازی در Gazebo، راه‌اندازی موتورها و انکودرها با ros2_control و مدیریت فرمان‌های حرکتی با twist_mux، و اتصال شبیه‌ساز با ros_gz_bridge برای اجرای یکسان نودها در SITL و روی سخت‌افزار واقعی (HITL) و دیباگ با RViz2 و rqt.",
+    "link": "https://github.com/MehrzadGolabi/ROS2_linefollower",
+    "year": "Jan 2026",
+    "year_fa": "دی ۱۴۰۴",
+    "summary": "ROS2 Jazzy line follower with IR and camera modes; Gazebo simulation, ros2_control, SITL/HITL.",
+    "summary_fa": "ربات دنبال‌کننده خط با ROS2 Jazzy، با حالت‌های IR و دوربین؛ شبیه‌سازی Gazebo، ros2_control و SITL/HITL."
+  },
+  {
+    "title": "Ball and Beam on FPGA (Spartan-6)",
+    "title_fa": "سیستم Ball and Beam مبتنی بر FPGA",
+    "language": "VHDL",
+    "stack": [
+      "VHDL",
+      "Spartan-6",
+      "PID",
+      "HC-SR04",
+      "Servo PWM",
+      "UART"
+    ],
+    "image": "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=1200&q=80&auto=format&fit=crop",
+    "learnings": "Implemented a discrete PID controller in VHDL to hold a ball at a setpoint: HC-SR04 ultrasonic distance measurement, MG996 servo PWM (50 Hz, 1.0-2.5 ms), and 115200-baud UART telemetry, all integrated in one top-level module with testbenches.",
+    "learnings_fa": "پیاده‌سازی کنترل‌کننده‌ی PID گسسته با VHDL روی FPGA برای کنترل موقعیت توپ: اندازه‌گیری فاصله با سنسور اولتراسونیک HC-SR04، تولید PWM سروو MG996 (۵۰ هرتز، ۱ تا ۲٫۵ میلی‌ثانیه) و ارسال داده‌ی UART با نرخ ۱۱۵۲۰۰، همگی در یک ماژول سطح‌بالا همراه با تست‌بنچ.",
+    "link": "https://github.com/MehrzadGolabi/Ball_and_Beam_VHDL",
+    "year": "Jun 2025",
+    "year_fa": "خرداد ۱۴۰۴",
+    "summary": "Discrete PID in VHDL on Spartan-6 with ultrasonic sensing, servo PWM and UART telemetry.",
+    "summary_fa": "کنترل‌کننده PID گسسته با VHDL روی Spartan-6 به‌همراه سنسور اولتراسونیک، PWM سروو و UART."
+  },
+  {
     "title": "AES-VHDL + UART on Spartan-6",
     "language": "VHDL",
-    "stack": ["UART", "Spartan-6", "FPGA", "AES-128"],
+    "stack": [
+      "UART",
+      "Spartan-6",
+      "FPGA",
+      "AES-128",
+      "Python CLI"
+    ],
     "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop",
-    "learnings": "Reduced 387 I/Os to a UART-based hex protocol to fit Posedge-1 Spartan-6; designed a framing protocol for plaintext/key/ciphertext; handled CDC, timing closure, and wrote testbenches for UART and AES datapath.",
-    "snippet": "-- UART-driven AES-128 encrypt top-level (simplified)\nentity top is\n  port (\n    clk      : in  std_logic;\n    rst      : in  std_logic;\n    uart_rx  : in  std_logic;\n    uart_tx  : out std_logic\n  );\nend entity;\n\narchitecture rtl of top is\n  signal key     : std_logic_vector(127 downto 0);\n  signal data_i  : std_logic_vector(127 downto 0);\n  signal data_o  : std_logic_vector(127 downto 0);\n  signal start   : std_logic;\n  signal ready   : std_logic;\nbegin\n  -- UART decoder/encoder (hex protocol)\n  -- u_rx: entity work.uart_rx ...\n  -- u_tx: entity work.uart_tx ...\n\n  u_aes: entity work.aes_enc\n    port map (\n      clk   => clk,\n      rst   => rst,\n      key   => key,\n      din   => data_i,\n      start => start,\n      dout  => data_o,\n      ready => ready\n    );\n\n  -- handshaking: assert start when full block + key are received\n  -- transmit data_o over UART when ready = '1'\nend architecture;",
-    "link": "https://github.com/MehrzadGolabi/AES-VHDL"
+    "learnings": "Reduced 387 I/Os to a UART-based hex protocol to fit Posedge-1 Spartan-6; designed a framing protocol for plaintext/key/ciphertext; handled CDC, timing closure, and wrote testbenches for UART and AES datapath. Built a Python command-line client to drive the FPGA over UART.",
+    "link": "https://github.com/MehrzadGolabi/AES-VHDL",
+    "title_fa": "AES-VHDL به‌همراه UART روی Spartan-6",
+    "learnings_fa": "کاهش ۳۸۷ پایه ورودی/خروجی به یک پروتکل هگزادسیمال مبتنی بر UART برای جاسازی روی بُرد Posedge-1 Spartan-6؛ طراحی پروتکل فریم‌بندی برای متن ساده، کلید و متن رمزشده؛ مدیریت CDC و بستن تایمینگ و نوشتن تست‌بنچ برای UART و مسیر داده‌ی AES. یک رابط خط فرمان پایتونی برای ارتباط با FPGA از طریق UART توسعه داده شد.",
+    "year": "Jun 2025",
+    "year_fa": "خرداد ۱۴۰۴",
+    "summary": "AES-128 encryption in VHDL on Spartan-6 with a UART protocol and a Python CLI.",
+    "summary_fa": "رمزنگار AES-128 با VHDL روی Spartan-6 با پروتکل UART و رابط خط فرمان پایتون."
+  },
+  {
+    "title": "Elevator Control System (Raspberry Pi Pico)",
+    "title_fa": "سیستم کنترل آسانسور",
+    "language": "C++",
+    "stack": [
+      "Raspberry Pi Pico",
+      "Stepper motor",
+      "Ultrasonic",
+      "I2C LCD",
+      "PlatformIO"
+    ],
+    "image": "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=80&auto=format&fit=crop",
+    "learnings": "Designed and built a four-floor elevator model and its control system on a Raspberry Pi Pico for the Industrial Control course: stepper positioning, reed-switch floor sensing, ultrasonic distance, I2C LCD, and a control-room button panel.",
+    "learnings_fa": "طراحی و ساخت ماکت آسانسور چهارطبقه و پیاده‌سازی سیستم کنترل آن روی Raspberry Pi Pico برای درس کنترل صنعتی: موقعیت‌دهی با استپر موتور، تشخیص طبقه با رید سوییچ، سنسور اولتراسونیک، نمایشگر LCD با I2C و پنل دکمه‌ی اتاق کنترل.",
+    "link": "https://github.com/MehrzadGolabi/Elevator_Project",
+    "year": "Jan 2025",
+    "year_fa": "دی ۱۴۰۳",
+    "summary": "Four-floor elevator model controlled by a Raspberry Pi Pico.",
+    "summary_fa": "ماکت آسانسور چهارطبقه با کنترل Raspberry Pi Pico."
+  },
+  {
+    "title": "Self-Balancing Robot (ESP32)",
+    "title_fa": "ربات تعادلی",
+    "language": "C++",
+    "stack": [
+      "ESP32",
+      "MATLAB",
+      "Closed-loop control",
+      "DRV8825"
+    ],
+    "image": "https://raw.githubusercontent.com/MehrzadGolabi/selfbalancingrobot/main/Pasted%20image%2020240707054357.png",
+    "learnings": "Built a self-balancing robot on an ESP32 for the Digital Systems 2 course (team project). Derived the equations of motion in MATLAB, logged experiments, and implemented a closed-loop controller to keep the robot upright.",
+    "learnings_fa": "ساخت ربات تعادلی بر پایه‌ی ESP32 در قالب پروژه‌ی گروهی درس سیستم‌های دیجیتال ۲. استخراج معادلات حرکت در MATLAB، ثبت داده‌های آزمایش و پیاده‌سازی سیستم کنترل حلقه‌بسته برای حفظ تعادل.",
+    "link": "https://github.com/MehrzadGolabi/selfbalancingrobot",
+    "year": "Jul 2024",
+    "year_fa": "تیر ۱۴۰۳",
+    "summary": "ESP32 self-balancing robot with closed-loop control and MATLAB modelling.",
+    "summary_fa": "ربات تعادلی ESP32 با کنترل حلقه‌بسته و مدل‌سازی در MATLAB."
   },
   {
     "title": "Electric Car (ATmega32) — Software I2C Core",
     "language": "C",
-    "stack": ["ATmega32", "I2C (bit-banged)", "Proteus"],
+    "stack": [
+      "ATmega32",
+      "I2C (bit-banged)",
+      "Proteus"
+    ],
     "image": "https://raw.githubusercontent.com/MehrzadGolabi/Digital2-Lab-Final-Project--Electric-Car-ATMEGA32/main/Az_digital2_400249049.png",
     "learnings": "Implemented precise SCL/SDA timing, clock stretching handling, and an I2C scanner in Proteus. This enabled sensor comms without TWI hardware and simplified debugging over the virtual terminal.",
-    "snippet": "i2c_read_byte(uint8_t ack){\n  uint8_t v=0; sda_high(); // release for input\n  for(uint8_t i=0;i<8;i++){\n    v <<= 1; i2c_delay(); scl_high(); while(!scl_read());\n    if(sda_read()) v |= 1; i2c_delay(); scl_low();\n  }\n  if(ack) sda_low(); else sda_high(); // drive ACK(0) or NACK(1)\n  i2c_delay(); scl_high(); while(!scl_read()); i2c_delay(); scl_low(); sda_high();\n  return v;\n}",
-    "link": "https://github.com/MehrzadGolabi/Digital2-Lab-Final-Project--Electric-Car-ATMEGA32"
+    "link": "https://github.com/MehrzadGolabi/Digital2-Lab-Final-Project--Electric-Car-ATMEGA32",
+    "title_fa": "ماشین الکتریکی (ATmega32) - هسته‌ی I2C نرم‌افزاری",
+    "learnings_fa": "پیاده‌سازی دقیق تایمینگ SCL/SDA، مدیریت clock stretching و یک I2C scanner در Proteus؛ امکان ارتباط با سنسورها بدون سخت‌افزار TWI و ساده‌تر شدن دیباگ با ترمینال مجازی.",
+    "summary": "Bit-banged I2C core for the ATmega32, verified in Proteus.",
+    "summary_fa": "هسته‌ی I2C نرم‌افزاری برای ATmega32، راستی‌آزمایی‌شده در Proteus.",
+    "year": "Jan 2025",
+    "year_fa": "دی ۱۴۰۳"
   }
 ]
-

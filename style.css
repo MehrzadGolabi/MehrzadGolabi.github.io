@@ -1,0 +1,161 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #666666;
+  --rule: #e2e2e2;
+  --accent: #1f4e79;
+  --max: 45rem;
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --fg: #e6e6e6;
+  --muted: #9a9a9a;
+  --rule: #2c2c2c;
+  --accent: #8ab4e0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+[lang="fa"] body, html[lang="fa"] body {
+  font-family: "Vazirmatn", Tahoma, system-ui, sans-serif;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.site-header { border-bottom: 1px solid var(--rule); }
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  flex-wrap: wrap;
+}
+.brand { color: var(--fg); font-weight: 600; }
+.brand:hover { text-decoration: none; }
+.site-header .wrap { direction: ltr; } /* keep header layout identical in EN and FA */
+.site-nav { display: flex; gap: 20px; align-items: center; font-size: 0.95rem; }
+.site-nav .link-btn { text-align: center; }
+#theme-toggle { width: 3.5rem; }
+#lang-toggle { width: 4.5rem; }
+.site-nav a[aria-current="page"] { color: var(--fg); }
+.link-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+}
+.link-btn:hover { text-decoration: underline; }
+
+/* Content */
+main.wrap { padding-top: 48px; padding-bottom: 24px; }
+
+h1 { font-size: 1.9rem; line-height: 1.25; font-weight: 600; }
+.role { color: var(--muted); margin-top: 4px; }
+.intro-head { display: flex; align-items: center; gap: 28px; }
+.avatar { width: 10.5rem; height: 10.5rem; object-fit: cover; border: 1px solid var(--rule); flex: none; }
+.lead { margin-top: 20px; }
+.lead p + p { margin-top: 10px; }
+
+.links { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 4px 20px; }
+
+section { margin-top: 48px; }
+h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+[lang="fa"] h2 { letter-spacing: 0; text-transform: none; font-size: 0.95rem; }
+
+.entry {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: 4px 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.entry:last-child { border-bottom: 0; }
+.entry .when { color: var(--muted); font-size: 0.9rem; }
+.entry .what { font-weight: 600; }
+.entry .where { color: var(--muted); }
+.entry p { margin-top: 4px; }
+.entry .meta { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+.entry .actions { margin-top: 6px; font-size: 0.92rem; }
+.entry img { display: block; max-width: 100%; border: 1px solid var(--rule); }
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 10px; }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; height: auto; }
+.gallery figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+
+.more { margin-top: 12px; font-size: 0.95rem; }
+
+dl.skills { display: grid; grid-template-columns: 9.5rem 1fr; gap: 10px 20px; padding-top: 14px; }
+dl.skills dt { color: var(--muted); font-size: 0.9rem; }
+
+.page-title { margin-bottom: 8px; }
+.page-sub { color: var(--muted); }
+
+footer { border-top: 1px solid var(--rule); margin-top: 56px; padding: 20px 0 40px; color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 600px) {
+  main.wrap { padding-top: 32px; }
+  .entry, dl.skills { grid-template-columns: 1fr; gap: 2px; }
+  dl.skills dd { margin-bottom: 8px; }
+}
+
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip-link:focus {
+  width: auto;
+  height: auto;
+  clip-path: none;
+  inset-inline-start: 8px;
+  top: 8px;
+  background: var(--bg);
+  padding: 4px 8px;
+  z-index: 10;
+}
+
+@media print {
+  .site-header .site-nav { display: none; }
+}
+
+@media (max-width: 600px) {
+  .intro-head { gap: 16px; }
+  .avatar { width: 6.5rem; height: 6.5rem; }
+}
+
+/* Large monitors: scale the whole layout up (sizes are rem-based) */
+@media (min-width: 1800px) {
+  html { font-size: 20px; }
+}
+@media (min-width: 2400px) {
+  html { font-size: 24px; }
+}
