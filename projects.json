@@ -1,21 +1,22 @@
 [
   {
-    "title": "Thesis: SLAM Comparison on TurtleBot3",
+    "title": "Thesis: SLAM Algorithms on TurtleBot3",
     "title_fa": "پروژه کارشناسی: مقایسه الگوریتم‌های SLAM روی TurtleBot3",
     "language": "MATLAB",
     "stack": [
       "ROS2 Humble",
-      "TurtleBot3",
+      "TurtleBot3 Burger",
       "LiDAR LDS-02",
-      "Pose-Graph SLAM",
       "Hector SLAM",
-      "MATLAB"
+      "Pose-Graph SLAM",
+      "MATLAB",
+      "Gazebo"
     ],
     "image": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&q=80&auto=format&fit=crop",
-    "learnings": "B.Sc. project at Shahid Beheshti University comparing simultaneous localization and mapping algorithms. Ran SLAM on a TurtleBot3 Burger under ROS2 Humble, streaming LiDAR data to MATLAB for mapping, and evaluated Pose-Graph vs Hector SLAM in indoor environments. Built a MATLAB GUI for live visualization and worked with the university robotics team on autonomous navigation. Code is not public; report and results available on request.",
-    "learnings_fa": "پروژه‌ی کارشناسی در دانشگاه شهید بهشتی: مقایسه‌ی الگوریتم‌های نقشه‌برداری و مکان‌یابی هم‌زمان. پیاده‌سازی SLAM روی TurtleBot3 Burger در ROS2 Humble با انتقال داده‌های LiDAR به MATLAB، ارزیابی الگوریتم‌های Pose-Graph و Hector SLAM در محیط‌های داخلی، طراحی رابط گرافیکی MATLAB برای پایش و تحلیل داده‌ها و همکاری با تیم رباتیک دانشگاه. کد این پروژه عمومی نیست؛ گزارش و نتایج در صورت درخواست قابل ارائه است.",
-    "summary": "B.Sc. thesis: Pose-Graph vs Hector SLAM on a TurtleBot3 (ROS2 Humble, MATLAB).",
-    "summary_fa": "پروژه کارشناسی: مقایسه Pose-Graph و Hector SLAM روی TurtleBot3 (ROS2 Humble و MATLAB).",
+    "learnings": "B.Sc. thesis at Shahid Beheshti University (grade 20/20, supervisor Dr. Mostafa Abedi). Implemented Hector SLAM from scratch in MATLAB (multi-resolution Gauss–Newton scan matching, bilinear interpolation, log-odds occupancy map), publishing the map and TF to ROS 2. Developed a pose-graph SLAM that removes transient obstacles from the map dynamically (Bresenham ray tracing) and automatically rolls back false loop closures. Evaluated both in Gazebo and in four real-world scenarios on a TurtleBot3 Burger with an LDS-02 LiDAR under ROS 2 Humble, and collaborated with the university robotics team on autonomous navigation. Code is not public; report and results available on request.",
+    "learnings_fa": "پروژه‌ی کارشناسی در دانشگاه شهید بهشتی (نمره‌ی ۲۰، استاد راهنما دکتر مصطفی عابدی). پیاده‌سازی Hector SLAM از پایه در MATLAB (تطبیق اسکن گوس-نیوتن چندرزولوشنی، درون‌یابی دوخطی، نقشه‌ی log-odds) و انتشار نقشه و TF در ROS2. توسعه‌ی Pose-Graph SLAM با حذف پویای موانع موقت از نقشه (ردگیری پرتو برزنهام) و برگشت خودکار بستن‌حلقه‌های نادرست. ارزیابی و مقایسه‌ی دو الگوریتم در Gazebo و چهار سناریوی واقعی روی TurtleBot3 Burger با LiDAR LDS-02 در ROS2 Humble و همکاری با تیم رباتیک دانشگاه در طراحی سیستم ناوبری خودکار. کد این پروژه عمومی نیست؛ گزارش و نتایج در صورت درخواست قابل ارائه است.",
+    "summary": "B.Sc. thesis (20/20): Hector SLAM from scratch and a pose-graph SLAM with dynamic obstacle removal, compared in Gazebo and four real-world scenarios on a TurtleBot3.",
+    "summary_fa": "پروژه کارشناسی (نمره ۲۰): پیاده‌سازی Hector SLAM از پایه و Pose-Graph SLAM با حذف پویای موانع، مقایسه در Gazebo و چهار سناریوی واقعی روی TurtleBot3.",
     "images": [
       {
         "src": "capstone-project-physical-1.jpg",
@@ -48,13 +49,32 @@
     "learnings": "Built a line follower with two modes (IR array and camera/OpenCV) as three ROS2 packages with Node/Topic/Service and launch-file structure. Modeled the robot in URDF/SDF, tested in Gazebo, ran motors and encoders through ros2_control with twist_mux command arbitration, and used ros_gz_bridge to run the same nodes in software-in-the-loop and on real hardware (HITL), debugging with RViz2 and rqt.",
     "learnings_fa": "ربات دنبال‌کننده خط با دو حالت کاری (آرایه‌ی IR و پردازش تصویر با OpenCV) در قالب سه پکیج ROS2 با ساختار Node/Topic/Service و Launch File. مدل‌سازی در URDF/SDF و شبیه‌سازی در Gazebo، راه‌اندازی موتورها و انکودرها با ros2_control و مدیریت فرمان‌های حرکتی با twist_mux، و اتصال شبیه‌ساز با ros_gz_bridge برای اجرای یکسان نودها در SITL و روی سخت‌افزار واقعی (HITL) و دیباگ با RViz2 و rqt.",
     "link": "https://github.com/MehrzadGolabi/ROS2_linefollower",
-    "year": "Jan 2026",
+    "year": "Dec 2025",
     "year_fa": "دی ۱۴۰۴",
     "summary": "ROS2 Jazzy line follower with IR and camera modes; Gazebo simulation, ros2_control, SITL/HITL.",
     "summary_fa": "ربات دنبال‌کننده خط با ROS2 Jazzy، با حالت‌های IR و دوربین؛ شبیه‌سازی Gazebo، ros2_control و SITL/HITL."
   },
   {
-    "title": "Ball and Beam on FPGA (Spartan-6)",
+    "title": "Reaction-Wheel Inverted Pendulum",
+    "title_fa": "پاندول معکوس با چرخ عکس‌العملی",
+    "language": "C++ / MATLAB",
+    "stack": [
+      "Arduino Nano",
+      "TB6612",
+      "AS5600",
+      "MATLAB/Simulink",
+      "System Identification Toolbox",
+      "PID"
+    ],
+    "learnings": "Designed and built a reaction-wheel inverted pendulum for the Digital Control course (3D-printed body, Arduino Nano, TB6612 driver, AS5600 encoder). Identified the DC motor with MATLAB's System Identification Toolbox (three-pole model, over 95% fit), discretised a PID controller with the Tustin method in Simulink and implemented it on the microcontroller at a 20 Hz sampling rate.",
+    "learnings_fa": "طراحی و ساخت پاندول معکوس با چرخ عکس‌العملی در درس کنترل دیجیتال (بدنه‌ی چاپ سه‌بعدی، Arduino Nano، درایور TB6612، انکودر AS5600). شناسایی موتور DC با System Identification Toolbox متلب (مدل سه‌قطبی با تطابق بیش از ۹۵٪)، گسسته‌سازی کنترل‌کننده‌ی PID به روش Tustin در Simulink و پیاده‌سازی آن روی میکروکنترلر با نرخ نمونه‌برداری ۲۰ هرتز.",
+    "year": "Sep 2025",
+    "year_fa": "شهریور ۱۴۰۴",
+    "summary": "Reaction-wheel pendulum: motor identified (>95% fit), Tustin-discretised PID at 20 Hz on an Arduino Nano.",
+    "summary_fa": "پاندول معکوس با چرخ عکس‌العملی: شناسایی مدل موتور (تطابق بیش از ۹۵٪) و PID گسسته‌شده به روش Tustin با نرخ ۲۰ هرتز روی Arduino Nano."
+  },
+  {
+    "title": "FPGA Ball and Beam (Spartan-6)",
     "title_fa": "سیستم Ball and Beam مبتنی بر FPGA",
     "language": "VHDL",
     "stack": [
